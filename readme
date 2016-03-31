@@ -1,0 +1,20 @@
+Author  : Cheryl Dunn
+Purpose : 	This is a bookstore management program that prompts the user for input.
+	 	  	The user can add a course and book and product to a bookstore. Courses are 			  	stored in a linked list and  store 	books in an array. The program also 			stores an array of products that belong to the bookstore.
+			 	 
+
+Sources Files : Book.cc, BookArray.cc, BMScontrol.cc, Dlist.cc, Course.cc,	main.cc, 	
+				UImanager.cc, Product.cc, Writing.cc, Game.cc, Writing.cc
+
+Header Files  : Book.h, BookArray.h, BMScontrol.h, Dlist.h, Course.h, 			
+				UImanager.h, defs.h, Product.h, Writing.h, Game.h, Writing.h 
+
+Executable Files : a3
+
+compilation : 	To compile type make into the command propmt
+
+Launching   : 	To launch type ./a3 into the command prompt
+
+Operating   : 	The program launches and prompts the user for imput. It launches to a 					menu where you can addcourses and textbooks. Adding courses and books 					will ask the user for more information, fill in the information. 					Books are added to courses so a course must exist in order to add a 				Book. There is also an option to add a product, selecting that 					will launch to a produt menu. Select teh course you want to add.
+			    Books are also stored in the prodcut array. 
+
