@@ -41,7 +41,7 @@ void BMScontrol::launch()
 		else if (choice == 2) { // add multiple courses
 			Dlist<Course*> list;
 			view->getCourses(list);
-			//view->printCourses(list);
+			view->printCourses(list);
 			*courses += list;	
   		}
 		else if (choice == 3) { // remove single course
@@ -76,4 +76,3 @@ void BMScontrol::launch()
     view->pause();
   }
 }
-
