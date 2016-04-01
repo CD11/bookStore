@@ -22,21 +22,20 @@ class Dlist
 			
 			V data;		
 			Node<V>* next;
-			Node<V>* prev;
 	};
 
 	template <class V>
-	friend void operator<<(string&, Dlist<V>&);
+	friend string& operator<<(string&, Dlist<V>&);
 	public:
 	    Dlist();
 	    ~Dlist();
-	    void add(T);
+	    void add(T*);
 		void remove(T*);
-	    T& getObj(int);
-		T& findObj(string);
+	    T* getObj(int);
+		T* findObj(string);
 	    int getSize();
 		void cleanup();
-		string formatString(T*);
+		string formatString(T**);
 		Dlist<T>& operator+=(T&);
 		Dlist<T>& operator-=(T&);
 		Dlist<T>& operator+=(Dlist<T>&);
@@ -65,22 +64,22 @@ int    Dlist<T>::getSize()        { return size; }
 
 // gets a Obj node from the list
 template <class T>
-T& Dlist<T>::getObj(int index) 
+T* Dlist<T>::getObj(int index) 
 {
   	Node<T>* currNode = head;
  	Node<T>* nextNode;
+	T c;
 
 	for(int i = 0; i < index; i++){
     	nextNode = currNode->next;
 		currNode = nextNode;
   	}
-
-	return currNode->data;
+	return &currNode->data;
 }
 
 
 template <class T>
-T& Dlist<T>::findObj(string code)
+T* Dlist<T>::findObj(string code)
 {
 	Node<T>* currNode = head;
   	Node<T>* nextNode;
@@ -95,27 +94,28 @@ T& Dlist<T>::findObj(string code)
     	nextNode = currNode->next;
 		currNode = nextNode;
   	}
-	return currNode->data;
 	
+	return &currNode->data;;
 }
 
 
 // adds a Obj to the list
 template <class T>
-void Dlist<T>::add(T obj)
-{	
-	Node<T>* currNode = head;
+void Dlist<T>::add(T* obj)
+{ 
+	
+	
+	Node<T>* currNode = this->head;
 	Node<T>* prevNode = 0;
 
 	Node<T>* newNode = new Node<T>;
-	newNode->data = obj;
+	newNode->data = *obj;
 
 	while (currNode != 0) {
-		if((currNode->data)->getCode() > (obj)->getCode()){
+		if((currNode->data)->getCode() > (newNode->data)->getCode()){
 			break; 		
 		}
 		prevNode = currNode;
-		currNode->prev = currNode;
 		currNode = currNode->next;
 	}
 	
@@ -123,28 +123,17 @@ void Dlist<T>::add(T obj)
 	if (prevNode == 0) {
 		//cout<< " adding to head " << endl;
 		head = newNode;
-		newNode->prev = NULL;
 		newNode->next = currNode;
-		prevNode = newNode; 
 		
 	}/* adding to tail of list */
-	else if (currNode == 0){
+	else {
 		//cout<< " adding to tail " << endl;
 		newNode->next  = NULL;
-		newNode->prev  = prevNode;
-		currNode = newNode;
-	} 
-	//adding to the middle of the list
-	else {
-		//cout << " adding to middle " << endl;
 		prevNode->next = newNode;
-		newNode->prev = currNode->prev;
-		newNode->next = currNode;
-		currNode->prev = newNode;
-	}
+	} 
 	newNode->next = currNode;
 	size++;
-	//cout <<size;
+
 }
 
 
@@ -167,7 +156,6 @@ void Dlist<T>::remove(T* obj)
 	if (prevNode == 0) 
 	{
 		head = currNode->next;	
-		currNode->prev = 0; 
 	}	
 	// deleting from the middle of the list
 	else
@@ -195,7 +183,7 @@ void Dlist<T>::cleanup()
 
 template <class T>
 Dlist<T>& Dlist<T>::operator+=(T& obj){
-	 add(obj);
+	add(&obj);
 	return *this;
 }
 
@@ -208,9 +196,10 @@ Dlist<T>& Dlist<T>::operator-=(T& obj){
 template <class T>
 Dlist<T>& Dlist<T>::operator+=(Dlist<T>& list){
 	Node<T>* newNode = list.head;
+
 	while(newNode != NULL){
 		T c = newNode->data;
-		add(c);
+		*this += (c);
 		newNode = newNode->next;
 		list -= c;
 	}
@@ -220,9 +209,12 @@ Dlist<T>& Dlist<T>::operator+=(Dlist<T>& list){
 template <class T>
 Dlist<T>& Dlist<T>::operator-=(Dlist<T>& list){
 	Node<T>* newNode = list.head;
+	string s;
+	s << list;
+	cout << s;
 	while(newNode != NULL){
 		T c = (newNode->data);
-		add(c);
+		*this -= (c);
 		newNode = newNode->next;
 		list -= c;
 	}
@@ -230,20 +222,22 @@ Dlist<T>& Dlist<T>::operator-=(Dlist<T>& list){
 }
 
 template <class T>
-string Dlist<T>::formatString(T* c){
+string Dlist<T>::formatString(T** c){
+
+	T* o = *c;	
 	string Obj, instructor, enrolment, textbooks;
-	Obj = "Course : " + (*c)->getCode() +  " " + (*c)->getName() + " \n";
-	instructor =  "Instructor : " +  (*c)->getInstr() + " \n";
+	Obj = "Course : " + (*o)->getCode() +  " " + (*o)->getName() + " \n";
+	instructor =  "Instructor : " +  (*o)->getInstr() + " \n";
 	textbooks = "TextBooks: ";
 	stringstream ss;   
-	ss << (*c)->getEnrol(); 
+	ss << (*o)->getEnrol(); 
 	enrolment = "Enrolment: " + ss.str() + " \n"; 
-	if ((*c)->getNumBooks() == 0) {
+	if ((*o)->getNumBooks() == 0) {
 			textbooks += "none"; 
 	}
 	else {
-		for(int j =0 ; j< (*c)->getNumBooks(); j++){
-		   	textbooks += (*c)->getBooks()->getBook(j)->getTitle()+ " ";
+		for(int j =0 ; j< (*o)->getNumBooks(); j++){
+		   	textbooks += (*o)->getBooks()->getBook(j)->getTitle()+ " ";
 		}
 		textbooks += "\n";	
 	}
@@ -252,23 +246,21 @@ string Dlist<T>::formatString(T* c){
 }
 
 template <class V>
-void operator<<(string& out, Dlist<V>& list){ 
+string& operator<<(string& out, Dlist<V>& list){ 
     string Obj, instructor, enrolment, textbooks;
 	out += " \n\n ALL Courses INCREASING:\n";
 	for (int i=0; i< list.getSize(); ++i) {
-		//cout<< list.getSize();
-	    V c = (list.getObj(i));
+	    V* c = list.getObj(i);
 		out += list.formatString(&c);
 	}
 
 	out += "\n\n ALL Courses DECREASING:\n";
 	for (int i= list.getSize()-1; i>=0; --i) {
-	    V c = (list.getObj(i));
+	    V* c = list.getObj(i);
 		out += list.formatString(&c);
 	}
-	
-	cout << out << endl;
-	//return out;   
+	cout << out <<endl;
+	return out;   
 }
 
 #endif 
