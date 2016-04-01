@@ -87,6 +87,7 @@ void UImanager::getCourses(Dlist<Course*>& list)
 	for(int i = 0; i < num; ++i){
 		Course* course;
 		getCourseData(&course);
+		cout <<  "   ---- c " << course;
 		list += course;
 
 	}
@@ -98,13 +99,11 @@ void UImanager::getCourses(Dlist<Course*>& list)
 void UImanager::removeCourseData(Course** c, Dlist<Course*>& list)
 {
 	string code;
-	Course * course;
 	while (code.length() != 8) {
 		cout << "Enter course code (e.g. COMP2404):  ";
    		getline(cin, code);
   	}
-	course = list.findObj(code);
-	*c = course;
+	*c = *list.findObj(code);
 	cout<< "Course removed ";
 }
 
@@ -127,7 +126,8 @@ void UImanager::removeCourses(Dlist<Course*>& temp, Dlist<Course*>& list)
 			cout << "Enter course code (e.g. COMP2404):  ";
 	   		getline(cin, code);
   		} 
-		c = list.findObj(code);
+		c = *list.findObj(code);
+		
 		temp += c;
 	}
 }
@@ -139,7 +139,7 @@ void UImanager::printCourses( Dlist<Course*>& list)
 {
 	
 	string s = "" ;
-	//cout<< " Printing courses " << endl;
+	cout<< " Printing courses " << endl;
 	s << list;
     cout << endl<<endl;
 }
@@ -221,7 +221,7 @@ void UImanager::getBook(Book** book, Dlist<Course*>& list)
 		cout << "Enter course code (e.g. COMP2404):  ";
    		getline(cin, code);
   	}
-	c  = list.findObj(code);
+	c  = *list.findObj(code);
 	if(list.getSize() == 0 || &c == NULL){
 		cout<< "No courses" << endl;  
 	}
@@ -243,7 +243,7 @@ void UImanager::printBooks(Dlist<Course*>& list){
 	string code;	
 	cout << "Enter Course Code:  ";
 	getline(cin, code); 
-	c = list.findObj(code);
+	c = *list.findObj(code);
 	cout << c->getCode();
 	if(c!= NULL){
 		cout << " Textbooks for "<< c->getCode()<<endl << endl;
@@ -395,7 +395,6 @@ void UImanager::cleanUpProducts(Product** p, int size){
 		delete  p[i];	
 	}
 }
-
 
 
 
