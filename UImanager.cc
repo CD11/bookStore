@@ -17,6 +17,95 @@ void UImanager::mainMenu(int* choice)
 	*choice = -1;
 
 	cout << endl << endl << "WELCOME TO THE BOOKSTORE MANAGEMENT SYSTEM" << endl<<endl;
+	cout << "  Login as a user " << endl;
+	cout << "  ( 1 )  Employee" << endl;
+	cout << "  ( 2 )  Customer" << endl;
+	cout << "  ( 3 )  Product Company " << endl;
+	cout << "  ( 4 )  Teacher" << endl;
+	cout << "  ( 0 )  Exit" << endl << endl;
+	while (*choice < 0 || *choice > 4) {
+		cout << "Enter your selection:  ";
+		*choice = getInt();
+	}
+}
+
+
+/*	Purpose:	Outputs the employee menu to the screen
+
+*/
+void UImanager::employeeMenu(int* choice)
+{
+	string str;
+
+	*choice = -1;
+	
+	cout << endl << endl << "Welcome Employee" << endl<<endl;
+	cout << "  Product Management:" << endl;
+	cout << "  ( 1 )  Add a Book" << endl;
+	cout << "  ( 2 )  Remove a Book" << endl;
+	cout << "  ( 3 )  Add a Game" << endl;
+	cout << "  ( 4 )  Remove a Game" << endl;
+	cout << "  ( 5 )  Add an eReader " << endl;	
+	cout << "  ( 6 )  Remove a eReader" << endl;
+	cout << "  ( 7 )  Add a writing object" << endl;
+	cout << "  ( 8 )  Remove a Writing object" << endl;
+	cout << "  ( 9 )  Print Products " << endl;
+	cout << "  ( 0 )  Exit" << endl << endl;
+	while (*choice < 0 || *choice > 9) {
+		cout << "Enter your selection:  ";
+		*choice = getInt();
+	}
+}
+
+/*	Purpose:	Outputs a company menu to the screen
+
+*/
+void UImanager::companyMenu(int* choice)
+{
+	*choice = -1;
+	cout << endl << endl << "Welcome Company" << endl<<endl;
+	cout << "  ( 1 )  Add Product" << endl;
+	cout << "  ( 2 )  Remove Prodct" << endl;
+	cout << "  ( 3 )  Change price"  <<endl;
+	cout << "  ( 0 )  exit "<< endl<< endl;
+	while (*choice < 0 || *choice > 3) {
+		cout << "Enter your selection:  ";
+		*choice = getInt();
+	}
+}
+
+/*	Purpose:	Outputs the client menu to the screen
+
+*/
+void UImanager::customerMenu(int* choice)
+{
+	string str;
+
+	*choice = -1;
+	cout << endl << endl << "Welcome Customer" << endl<<endl;
+	cout << "  ( 1 )  Add a Book to cart" << endl;
+	cout << "  ( 2 )  Remove a Book from cart" << endl;
+	cout << "  ( 3 )  Add a Game to cart" << endl;
+	cout << "  ( 4 )  Remove a Game from cart" << endl;
+	cout << "  ( 5 )  Add an eReader to cart " << endl;	
+	cout << "  ( 6 )  Remove a eReader from cart" << endl;
+	cout << "  ( 7 )  Add a writing object to cart" << endl;
+	cout << "  ( 8 )  Remove a Writing object from cart" << endl;
+	cout << "  ( 0 )  Exit" << endl << endl;
+	while (*choice < 0 || *choice > 8) {
+		cout << "Enter your selection:  ";
+		*choice = getInt();
+	}
+}
+
+
+/*	Purpose:	Outputs the client menu to the screen
+
+*/
+void UImanager::teacherMenu(int* choice)
+{
+
+cout << endl << endl << "Welcome Teacher" << endl<<endl;
 	cout << "  Course Management:" << endl;
 	cout << "  ( 1 )  Add single course" << endl;
 	cout << "  ( 2 )  Add multiple courses" << endl;
@@ -26,14 +115,21 @@ void UImanager::mainMenu(int* choice)
 	cout << "  Textbook Management:" << endl;
 	cout << "  ( 6 )  Add textbook" << endl;	
 	cout << "  ( 7 )  List course textbooks" << endl << endl;
-	cout << "  Other Products: " << endl;
-	cout << "  ( 8 )  Add Product" << endl;
-	cout << "  ( 9 )  Print Inventory " << endl;
-	cout << "  ( 0 )  Exit" << endl << endl;
-	while (*choice < 0 || *choice > 9) {
+	cout << "  ( 0 )  exit "<< endl<< endl;
+	while (*choice < 0 || *choice > 7) {
 		cout << "Enter your selection:  ";
 		*choice = getInt();
 	}
+}
+
+
+/* Purpose:  Verifies that the users login 
+   Params: 	 Takes a string
+*/
+void UImanager::login(string* s){
+	string str = "";
+	cout << "Enter your user Company ID (i.e. books): "; 
+	getline(cin, str);
 }
 
 /*	Purpose:	Get data and creates a new course object as well as allocate 
@@ -87,7 +183,6 @@ void UImanager::getCourses(Dlist<Course*>& list)
 	for(int i = 0; i < num; ++i){
 		Course* course;
 		getCourseData(&course);
-		cout <<  "   ---- c " << course;
 		list += course;
 
 	}
@@ -104,7 +199,7 @@ void UImanager::removeCourseData(Course** c, Dlist<Course*>& list)
    		getline(cin, code);
   	}
 	*c = *list.findObj(code);
-	cout<< "Course removed ";
+	//cout<< "Course removed ";
 }
 
 /*	Purpose:	finds number of courses to remove and creates a list 
@@ -169,43 +264,7 @@ int UImanager::getInt()
   return num;
 }
 
-/*	Purpose:	Gets the data for a book Object and creates a new book object
-	Params:		Takes a book pointer
-*/
-void UImanager::getBookData(Book** book)
-{
-	string    str = "";
-	string     title, author, ISBN;
-	int       edition, year, price;
-	cout << "Enter Book title:  ";
-	getline(cin, title);
 
-	cout << endl << "Enter Book Author:  ";
-	getline(cin, author);
-				
-	cout << endl << "Enter ISBN:   ";
-	getline(cin, ISBN);
-
-	cout << endl << "Enter Edition:   ";
-	getline(cin, str);
-	stringstream ss(str);
-	ss >> edition;
-			
-	while (str.length() != 4)
-	{
-		cout << endl << "Enter year:   ";
-		getline(cin, str);
-		stringstream st(str);
-		st >> year;
-	}
-
-	cout << endl << "Enter price:   ";
-	getline(cin, str);
-	stringstream s(str);
-	s >> price;
-				
-	*book  = new Book(title, author, ISBN, edition, year, price);
-}
 
 /*	Purpose:	Adds a book to a Bookarray for a course 
 	Params:		Takes a book pointer as well as a list of course objects
@@ -226,7 +285,37 @@ void UImanager::getBook(Book** book, Dlist<Course*>& list)
 		cout<< "No courses" << endl;  
 	}
 	else{ 
-		getBookData(&b);
+		string    str = "";
+		string     title, author, ISBN;
+		int       edition, year, price;
+		cout << "Enter Book title:  ";
+		getline(cin, title);
+
+		cout << endl << "Enter Book Author:  ";
+		getline(cin, author);
+				
+		cout << endl << "Enter ISBN:   ";
+		getline(cin, ISBN);
+
+		cout << endl << "Enter Edition:   ";
+		getline(cin, str);
+		stringstream ss(str);
+		ss >> edition;
+			
+		while (str.length() != 4)
+		{
+			cout << endl << "Enter year:   ";
+			getline(cin, str);
+			stringstream st(str);
+			st >> year;
+		}
+
+		cout << endl << "Enter price:   ";
+		getline(cin, str);
+		stringstream s(str);
+		s >> price;
+				
+		b  = new Book(title, author, ISBN, edition, year, price);
 		c->addBook(b);
 		*book= b;
 		
@@ -262,128 +351,167 @@ void UImanager::printBooks(Dlist<Course*>& list){
 	}
 }
 
-/* Get Product Data
-	Purpose:  Get data, allocate, and store products 
-	Params:	  takes a product array that stores pointers to products
-			  as well as the size of the array
+/*	Purpose:	Gets the data for a book Object and creates a new book object
+	Params:		Takes a book product
 */
-void UImanager::getProductData(Product** product)
+void UImanager::getBookData(Product** product)
 {
-	int choice;
-	choice = -1;
-	Product* p;
-
+	Product *p;
 	string    str = "";
-	string    title, author, ISBN, name, type, color;
-	int       edition, year, price, players, storage;
+	string     title, author, ISBN;
+	int       edition, year, price;
+	cout << "Enter Book title:  ";
+	getline(cin, title);
 
-	cout << endl << endl << "Choose a Product to add" << endl<<endl;
-	cout << "  Product Management:" << endl;
-	cout << "  ( 1 )  Add a Book" << endl;
-	cout << "  ( 2 )  Add a Game" << endl;
-	cout << "  ( 3 )  Add an eReader " << endl;
-	cout << "  ( 4 )  Add a writing object" << endl;
-	cout << "  ( 0 )  Exit" << endl << endl;
-	while (choice < 0 || choice > 4) {
-		cout << "Enter your selection:  ";
-		choice = getInt();
-	}
-	/*
-		takes menu choice and creates the proper product and adds 
-		it to the array
-	*/
-	while (1) {
-   		if (choice == 1) // add Book 
-		{ 	
-			Book* b;
-			getBookData(&b);
-			p = b;
-			break;
-    	}
-    	else if (choice == 2 ) // add a toy 
-		{ 
-			cout << "Enter Game name:  ";
-			getline(cin, name);
-
-			cout << endl << "Enter price:  ";
-			getline(cin, str);
-			stringstream sp(str);
-			sp >> price;
+	cout << endl << "Enter Book Author:  ";
+	getline(cin, author);
 				
-			cout << endl << "Enter type (e.g. puzzle):   ";
-			getline(cin, type);
+	cout << endl << "Enter ISBN:   ";
+	getline(cin, ISBN);
 
-			cout << endl << "Enter number of players:   ";
-			getline(cin, str);
-			stringstream s(str);
-			s >> players;
-	
-			p = new Game(name, price, type, players);
-			//p[size] = g;
-			break;
-		}
-		else if (choice == 3 ) // add an eReader
-		{ 
-		 	cout << "Enter eReader name:   ";
-			getline(cin, name);
+	cout << endl << "Enter Edition:   ";
+	getline(cin, str);
+	stringstream ss(str);
+	ss >> edition;
 			
-
-			cout << endl << "Enter price:  ";
-			getline(cin, str);
-			stringstream sp(str);
-			sp >> price;
-				
-			cout << endl << "Enter brand (e.g. apple, samsung):   ";
-			getline(cin, type);
-
-			cout << endl << "Enter storage in gb (e.g.8):   ";
-			getline(cin, str);
-			stringstream s(str);
-			s >> storage;
-	
-			p= new Ereader(name, price, type, storage);
-			//p[size] = e;
-			break;
-		}
-		else if (choice == 4 ) // add an writing implement
-		{ 
-			cout << "Enter Implement type (e.g.pen, marker):   ";
-			getline(cin, name);
-			
-			cout << endl << "Enter name(e.g. fountain, sharpie):   ";
-			getline(cin, type);
-
-			cout << endl << "Enter price:  ";
-			getline(cin, str);
-			stringstream sp(str);
-			sp >> price;
-				
-			cout << endl << "Enter color:   ";
-			getline(cin, color);
-	
-			p = new Writing(name, price, type, color);
-			//p[size]  = w;
-			break;
-		}
-		else if( choice == 0) // exit
-		{
-			break;
-		}
+	while (str.length() != 4)
+	{
+		cout << endl << "Enter year:   ";
+		getline(cin, str);
+		stringstream st(str);
+		st >> year;
 	}
+
+	cout << endl << "Enter price:   ";
+	getline(cin, str);
+	stringstream s(str);
+	s >> price;
+				
+	p  = new Book(title, author, ISBN, edition, year, price);
 	*product = p;
 }
+
+
+/*	Purpose:	Gets the data for a game Object and creates a new game object
+	Params:		Takes a product pointer
+*/
+void UImanager::getGameData(Product** product)
+{ 
+	Product* p;
+
+	string  str = "";
+	string	name, type;
+	int     price, players;
+
+	cout << "Enter Game name:  ";
+	getline(cin, name);
+	cout << endl << "Enter price:  ";
+	
+	getline(cin, str);
+	stringstream sp(str);
+	sp >> price;
+				
+	cout << endl << "Enter type (e.g. puzzle):   ";
+	getline(cin, type);
+
+	cout << endl << "Enter number of players:   ";
+	getline(cin, str);
+	stringstream s(str);
+	s >> players;
+	
+	p = new Game(name, price, type, players);
+	*product = p;
+}
+
+/*	Purpose:	Gets the data for a eReader Object and creates a new eReader object
+	Params:		Takes a product pointer
+*/
+void UImanager::geteReaderData(Product** product)
+{ 
+	Product* p;
+
+	string  str = "";
+	string	name, type;
+	int     price, storage;
+ 	cout << "Enter eReader name:   ";
+	getline(cin, name);
+	
+
+	cout << endl << "Enter price:  ";
+	getline(cin, str);
+	stringstream sp(str);
+	sp >> price;
+				
+	cout << endl << "Enter brand (e.g. apple, samsung):   ";
+	getline(cin, type);
+
+	cout << endl << "Enter storage in gb (e.g.8):   ";
+	getline(cin, str);
+	stringstream s(str);
+	s >> storage;
+
+	p= new Ereader(name, price, type, storage);
+	*product == p;
+}
+
+/*	Purpose:	Gets the data for a writing Object and creates a new writing object
+	Params:		Takes a product pointer
+*/
+void UImanager::getWritingData(Product** product)
+{ 
+	Product* p;
+
+	string  str = "";
+	string	name, type, color;
+	int     price;
+
+	cout << "Enter Implement type (e.g.pen, marker):   ";
+	getline(cin, name);
+			
+	cout << endl << "Enter name(e.g. fountain, sharpie):   ";
+	getline(cin, type);
+	
+	cout << endl << "Enter price:  ";
+	getline(cin, str);
+	stringstream sp(str);
+	sp >> price;
+				
+	cout << endl << "Enter color:   ";
+	getline(cin, color);
+	
+	p = new Writing(name, price, type, color);
+	*product = p;
+}
+	
+
+void UImanager::getProduct(Product** p, Dlist<Product*>& list){
+	string    str = "";
+	string    name;
+	cout << "Enter Product name:  ";
+	getline(cin, name);
+
+	*p = *list.findObj(name);
+	
+}	
 
 /*Purpose:	prints out the base object of all products in the array
   Params:	Takes an array of product pointers and their size
 
 */
 
-void UImanager::printProducts(Product** p, int size)
+void UImanager::printProducts(Dlist<Product*>& p)
 {
-	cout << "All Products "<< endl;
+	/*cout << "All Products "<< endl;
 	for(int i = 0; i < size; i++){
 		cout << i << ". " << (*p[i]).print() <<endl;	
-	}
+	}*/
+
+	string s = "" ;
+	cout<< " Printing Products " << endl;
+	p.printProducts(s, p);
+    cout << s << endl<<endl;
+	
+	
 }
 
 /*	Purpose: deallocates each product in the product array
