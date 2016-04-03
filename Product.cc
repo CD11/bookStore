@@ -14,7 +14,7 @@ Product::~Product()
 	//cout << "  --- Product dtor " << endl;
 }
 
-string Product::getName()    { return name; }
+string Product::getCode()    { return name; }
 int    Product::getPrice()   { return price; }
 string   Product::print()     
 {
