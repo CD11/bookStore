@@ -13,24 +13,31 @@
 class UImanager {
   public:
     void mainMenu(int*);
+	void employeeMenu(int*);
+	void customerMenu(int*);
+	void companyMenu(int*);
+	void teacherMenu(int*);
+	void login(string*);
     void getCourseData(Course**);
 	void getCourses(Dlist<Course*>&);
 	void removeCourseData(Course**, Dlist<Course*>&);
 	void removeCourses(Dlist<Course*>&, Dlist<Course*>&);
 	void getBook(Book**, Dlist<Course*>&);
-	void getBookData(Book**);
+	void getBookData(Product**);
+	void getGameData(Product**);
+	void geteReaderData(Product**);
+	void getWritingData(Product**);
+	void getProduct(Product**, Dlist<Product*>&);
     void printCourses(Dlist<Course*>&);
 	void printBooks(Dlist<Course*>&);
     void pause();
 	void getCourse(Dlist<Course*>&);
 	string formatForward(Dlist<Course*>&);
 	string formatReverse(Dlist<Course*>&);
-	void   getProductData(Product**);
-	void   printProducts(Product**, int);
+	void   printProducts(Dlist<Product*>&);
 	void   cleanUpProducts(Product**, int);
   private:
     int getInt();
 };
 
 #endif
-
