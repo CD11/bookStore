@@ -21,7 +21,7 @@ class Product {
   public:
     Product(string="", int=0);
 	virtual ~Product();
-    string 	getName();
+    string 	getCode();
     int    	getPrice();
 	string	print();
 
