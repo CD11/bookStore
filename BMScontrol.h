@@ -12,14 +12,13 @@ class BMScontrol {
     ~BMScontrol();
     void launch();
 	int getSize();
+	int cartSize();
 		
   private:
     UImanager*  view;
     Dlist<Course*>*    courses;
-    Product* 	products[MAX_BOOKS];
-	int 		numProducts;
-
+	Dlist<Product*>*    products;
+	Dlist<Product*>*    cart;
 };
 
 #endif
-
