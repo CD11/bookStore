@@ -33,8 +33,11 @@ class Dlist
 		void remove(T*);
 	    T* getObj(int);
 		T* findObj(string);
+		T* findProduct(string);
 	    int getSize();
 		void cleanup();
+		void cleanupProducts();
+		void printProducts(string&, Dlist<T>&);
 		string formatString(T**);
 		Dlist<T>& operator+=(T&);
 		Dlist<T>& operator-=(T&);
@@ -99,6 +102,8 @@ T* Dlist<T>::findObj(string code)
 }
 
 
+
+
 // adds a Obj to the list
 template <class T>
 void Dlist<T>::add(T* obj)
@@ -137,6 +142,7 @@ void Dlist<T>::add(T* obj)
 }
 
 
+
 // removes a Obj from the list
 template <class T>
 void Dlist<T>::remove(T* obj)
@@ -147,7 +153,7 @@ void Dlist<T>::remove(T* obj)
 	while (currNode != NULL)
 	{
 		if ((currNode->data)->getCode() == (*obj)->getCode())
-      	break;
+    		break;
    		prevNode = currNode;
     	currNode = currNode->next;
   	}
@@ -166,6 +172,7 @@ void Dlist<T>::remove(T* obj)
 	size--;
 }
 
+
 template <class T>
 void Dlist<T>::cleanup()
 {
@@ -174,6 +181,20 @@ void Dlist<T>::cleanup()
 	
 	while (currNode != 0) {
    		delete (currNode->data)->getBooks(); // deletes the book array
+		delete currNode->data;
+		nextNode = currNode->next;	
+		delete currNode;
+    	currNode =nextNode;
+    }	
+}
+
+template <class T>
+void Dlist<T>::cleanupProducts()
+{
+	Node<T>* currNode = head;
+	Node<T>* nextNode = 0; 
+	
+	while (currNode != 0) {
 		delete currNode->data;
 		nextNode = currNode->next;	
 		delete currNode;
@@ -243,6 +264,19 @@ string Dlist<T>::formatString(T** c){
 	}
 
 	return "\n"+Obj + instructor +  enrolment + textbooks+"\n\n";
+}
+
+template <class T>
+void Dlist<T>::printProducts(string& out, Dlist<T>& list){
+
+	string p;
+	for (int i=0; i< list.getSize(); ++i) {
+	    T* c = list.getObj(i);
+		stringstream ss;   
+		ss << (*c)->getPrice(); 
+		p =  ss.str() + " \n"; 
+		out += (*c)->getCode() + " " + p;
+	}
 }
 
 template <class V>
