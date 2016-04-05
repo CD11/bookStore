@@ -1,40 +1,48 @@
-#ifndef EMPLOYEE_H
-#define EMPLOYEE_H
+#include "Employee.h"
 
-#include <iostream>
-#include <sstream>
-#include <string>
+Employee::Employee(int ID, double discAmnt)
+{
+	cout << "  --- Employee ctor " << endl;
+	id   = ID;
+	discountAmnt  = discAmnt;
+	
+}
 
-using namespace std;
+Employee::~Employee()
+{
+	cout << "  --- Employee dtor " << endl;
+}
 
-#include "defs.h"
-#include "User.h"
-#include "Product.h"
-#include "Dlist.h"
+double Employee::getDiscount()    { return discountAmnt; }
+int    Employee::getCode()   { return id; } // called getCode so it can be used to sort in the Dlist class
 
-/*	Purpose:
-	This is a derived class for employees that can use the bookstore management system
-	All employees have a discount percent, id. 
-	Employee has polymorphic methods: view, addProduct, removeProduct (from the main list)
-*/
+void Employee::addProduct(Product* item)
+{
+		*products += item;
 
-class Employee: public User{
+}
 
-  public:
-    Employee(int=0, double=0.00);//id, discountAmnt (in decimal)
-	virtual ~Employee();
-    int 	getCode(); // called getCode so it can be used to sort in the Dlist class
- 	double  getDiscount();
-    void 	addProduct(Product*);
-    void 	removeProduct(Product*);
-	virtual Dlist<Product*>& getList();
-	virtual void searchProduct(string, Product*);
-	virtual void printList(Dlist<Product*>&);
-	virtual string getProduct();
-  private:
-    int   		id;
-    double      discountAmnt;
+void Employee::removeProduct(Product* item)
+{
+		*products -= item;
 
-};
+}
 
-#endif
+void Employee::searchProduct(string name, Product* p)
+{
+	p = *products->findObj(name);
+}
+
+void Employee::printList(Dlist<Product*>& p){
+	string s = "" ;
+	cout<< " Printing Products " << endl;
+	p.printProducts(s, p);
+    cout << s << endl<<endl;
+}
+
+
+Dlist<Product*>& Employee::getList(){
+	return *products;
+}
+
+string Employee::getProduct() { return NULL; }
