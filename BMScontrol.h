@@ -5,6 +5,8 @@
 #include "UImanager.h"
 #include "Dlist.h"
 #include "Course.h"
+#include "User.h"
+
 
 class BMScontrol {
   public:
@@ -16,9 +18,7 @@ class BMScontrol {
 		
   private:
     UImanager*  view;
-    Dlist<Course*>*    courses;
-	Dlist<Product*>*    products;
-	Dlist<Product*>*    cart;
+	Dlist<User*>*		users;
 };
 
 #endif
