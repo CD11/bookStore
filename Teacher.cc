@@ -1,12 +1,12 @@
 #include "Teacher.h"
 
-Teacher::Teacher(int ID, int discAmnt)
+Teacher::Teacher(int ID, double discAmnt)
 {
 	cout << "  --- Teacher ctor " << endl;
 	id   = ID;
 	discountAmnt  = discAmnt;
-	  courses = new Dlist<Course*>();//a teacher can teach multiple courses
-  books = new Dlist<Book*>();//a teacher can have a collection of required books for each course
+	courses = new Dlist<Course*>();//a teacher can teach multiple courses
+  //books = new Dlist<Book*>();//a teacher can have a collection of required books for each course
 
 	
 }
@@ -20,35 +20,59 @@ Teacher::~Teacher()
 }
 
 double Teacher::getDiscount()    { return discountAmnt; }
-int    Teacher::getId()   { return id; }
-
-void Teacher::addProduct(Book* book)
+int    Teacher::getCode()   { return id; }  // called getCode so it can be used to sort in the Dlist class
+void Teacher::addProduct(Product* item)
 {
-	courses += book;
+		//*products += item;
+
 }
 
-void Teacher::addCourse(Course* newCourse)
+void Teacher::removeProduct(Product* item)
 {
-	courses += newCourse;
+		//*products -= item;
+
+}
+void Teacher::addBook(Course* Course, Book* book)
+{
+	Course->addBook( book);
 }
 
-void Teacher::addCourses(Course* newCourses)
+void Teacher::add(Course* newCourse)
 {
-	courses += newCourses;
+	*courses += newCourse;
 }
 
-void Teacher::removeCourse(Course* delCourse)
+void Teacher::addMany(Dlist<Course*>& temp)
 {
-	courses -= delCourse;	
+	*courses += temp;
 }
 
-void Teacher::removeCourses(Dlist<Course*> delCourses)
+void Teacher::remove(Course* delCourse)
 {
-	courses -= delCourses;	
+	*courses -= delCourse;	
 }
 
-Product* User::searchProduct(string name)
+void Teacher::removeMany(Dlist<Course*>& temp)
 {
-	products->findProduct(name);
+	*courses -= temp;	
 }
 
+void Teacher::searchProduct(string name, Product* p)
+{
+	//p = *courses->findObj(name);
+}
+
+
+void Teacher::printList(Dlist<Product*>& p){
+	string s = "" ;
+	cout<< " Printing Products " << endl;
+	p.printProducts(s, p);
+    cout << s << endl<<endl;
+}
+
+
+Dlist<Product*>& Teacher::getList(){
+	return *products;
+}
+
+string Teacher::getProduct() { return NULL;}
