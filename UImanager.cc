@@ -67,8 +67,9 @@ void UImanager::companyMenu(int* choice)
 	cout << "  ( 1 )  Add Product" << endl;
 	cout << "  ( 2 )  Remove Prodct" << endl;
 	cout << "  ( 3 )  Change price"  <<endl;
+	cout << "  ( 4 )  Print Products" << endl;
 	cout << "  ( 0 )  exit "<< endl<< endl;
-	while (*choice < 0 || *choice > 3) {
+	while (*choice < 0 || *choice > 4) {
 		cout << "Enter your selection:  ";
 		*choice = getInt();
 	}
@@ -91,8 +92,9 @@ void UImanager::customerMenu(int* choice)
 	cout << "  ( 6 )  Remove a eReader from cart" << endl;
 	cout << "  ( 7 )  Add a writing object to cart" << endl;
 	cout << "  ( 8 )  Remove a Writing object from cart" << endl;
+	cout << "  ( 9 ) Print cart " << endl;
 	cout << "  ( 0 )  Exit" << endl << endl;
-	while (*choice < 0 || *choice > 8) {
+	while (*choice < 0 || *choice > 9) {
 		cout << "Enter your selection:  ";
 		*choice = getInt();
 	}
@@ -126,10 +128,58 @@ cout << endl << endl << "Welcome Teacher" << endl<<endl;
 /* Purpose:  Verifies that the users login 
    Params: 	 Takes a string
 */
-void UImanager::login(string* s){
+void UImanager::login(User** user, int* choice){
 	string str = "";
-	cout << "Enter your user Company ID (i.e. books): "; 
-	getline(cin, str);
+	string p = "";
+	string sub = "";
+	string num = "";
+	int n1;
+	int n2;
+	int id;
+
+
+	while (1) {
+		while(str.length() != 9 ) {
+			cout << "Enter your user ID: "; 
+			getline(cin, str);
+			sub = str.substr(0,3);
+	  		num  = str.substr(6);
+			stringstream s1(sub);
+			s1 >> n1;
+			stringstream s2(num);
+			s2 >> n2;
+			stringstream s3(str);
+			s3 >> id;
+		}
+		if (*choice == 1 && n1 == 100 ){	
+			*user = new Employee(id, 0.10);
+			cout << " Employee Logged in ";
+			break;
+		}
+		else if (*choice == 2 && n1 == 200){
+			*user = new Customer(id, 0.00);
+			cout << " Customer Logged in:";
+			break;
+		}	
+		else if (*choice == 3 && n1 == 300){
+			cout << "Enter your product type (e.g. Writing): "; 
+			getline(cin, str);
+			*user = new Company(id, 0.25, str );
+			cout << " Comapny Logged in ";
+			break;
+		}
+		else if (*choice == 4 && n1 ==400 ){
+			*user = new Teacher(id, 0.20);
+			cout<< " Teacher Logged in ";
+			break;
+		} else {
+			cout << " invalid "<< endl;
+			str = "";
+		}
+
+	}
+		
+	
 }
 
 /*	Purpose:	Get data and creates a new course object as well as allocate 
