@@ -1,38 +1,34 @@
-#ifndef USER_H
-#define USER_H
+#include "User.h"
 
-#include <iostream>
-#include <sstream>
-#include <string>
-#include "Dlist.h"
-#include "defs.h"
-using namespace std;
+User::User()
+{
+		
+  	products = new Dlist<Product*>();
+	
+}
 
+User::~User()
+{
+	cout << "  --- User dtor " << endl;
+}
 
-/*	Purpose:
-	This is a base class for all users that can use the bookstore management system
-	All users have a discount percent and an id. 
-	User has polymorphic methods: addProduct, removeProduct 
-*/
+double User::getDiscount()    { return discountAmnt; }
+int    User::getCode()   { return id; } // Called get Code so it can be used to sort in the Dlist Class.
 
-class User {
+void User::removeProduct(Product* item)
+{
+	*products  -= item;
+}
 
-  public:
-    User(int=0, double=0.00);//id, discountAmnt (in decimal)
-	virtual ~User();
-    int 	getId();
-    virtual void addProduct(Product*);
-    virtual void removeProduct(Product*);
-    double    	getDiscount();
-    virtual Product* searchProduct(string) = 0;
-
-  private:
-    int   id;
-    double      discountAmnt;
-    Dlist<Product*>*    products;//could be books, writing material, game, ereader
+void User::addProduct(Product* item)
+{
+	*products -= item;
+}
 
 
-};
 
-#endif
+
+
+
+
 
