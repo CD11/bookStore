@@ -6,6 +6,11 @@
 #include "Ereader.h"
 #include "Writing.h"
 #include "Course.h"
+#include "User.h"
+#include "Company.h"
+#include "Teacher.h"
+#include "Employee.h"
+#include "Customer.h"
 
 
 #define TEST_MODE
@@ -17,7 +22,7 @@ class UImanager {
 	void customerMenu(int*);
 	void companyMenu(int*);
 	void teacherMenu(int*);
-	void login(string*);
+	void login(User**, int*);
     void getCourseData(Course**);
 	void getCourses(Dlist<Course*>&);
 	void removeCourseData(Course**, Dlist<Course*>&);
