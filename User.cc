@@ -1,10 +1,9 @@
 #include "User.h"
 
-User::User(int ID, int discAmnt)
+User::User()
 {
-	cout << "  --- User ctor " << endl;
-	id   = ID;
-	discountAmnt  = discAmnt;
+		
+  	products = new Dlist<Product*>();
 	
 }
 
@@ -14,19 +13,22 @@ User::~User()
 }
 
 double User::getDiscount()    { return discountAmnt; }
-int    User::getId()   { return id; }
+int    User::getCode()   { return id; } // Called get Code so it can be used to sort in the Dlist Class.
 
 void User::removeProduct(Product* item)
 {
-	products->remove(item);
+	*products  -= item;
 }
 
 void User::addProduct(Product* item)
 {
-	products->add(item);
+	*products -= item;
 }
 
-Product* User::searchProduct(string name)
-{
-	products->findProduct(name);
-}
+
+
+
+
+
+
+
