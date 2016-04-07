@@ -1,6 +1,6 @@
 #include "User.h"
 
-User::User(int ID, int discAmnt)
+User::User(int ID, double discAmnt)
 {
 	cout << "  --- User ctor " << endl;
 	id   = ID;
@@ -18,15 +18,15 @@ int    User::getId()   { return id; }
 
 void User::removeProduct(Product* item)
 {
-	products->remove(item);
+	*products -= item;
 }
 
 void User::addProduct(Product* item)
 {
-	products->add(item);
+	*products += item;
 }
 
-Product* User::searchProduct(string name)
+void User::searchProduct(string name, Product* p)
 {
-	products->findProduct(name);
+	p = *products->findObj(name);
 }
