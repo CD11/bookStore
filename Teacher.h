@@ -8,31 +8,35 @@
 using namespace std;
 
 #include "defs.h"
-
-/*	Purpose:
-	This is a derived class for teachers that can use the bookstore management system
-	All teachers have a discount percent, id. 
-	Teacher has polymorphic methods: view, addProduct, removeProduct, addCourse, removeCourse (from the main list)
+#include "User.h"
+#include "Product.h"
+#include "Dlist.h"
+/*  Purpose:
+    This is a derived class for Teacher that can use the bookstore management system
+    All Teachers have a discount percent, id. 
+    Employee has polymorphic methods: view, addProduct, removeProduct (from the main list)
 */
 
-class Teacher {
+class Teacher: public User
+{
 
   public:
     Teacher(int=0, double=0.00);//id, discountAmnt (in decimal)
-	virtual ~Teacher();
-    int 	getId();
-         void addProduct(string, Book*);
-     void removeProduct(string, string);
-     void addCourse(Course*);
-     void removeCourse(string);
-     void searchProduct(string);//search for course by course code or textbook by isbn
-
-    double    	getDiscount();
+    virtual ~Teacher();
+    int     getCode(); // called getCode so it can be used to sort in the Dlist class
+    void    addCourse(Course*);
+    void    removeCourse(Course*);
+    virtual Dlist<Course*>& getCourses();
+    virtual void searchCourse(string, Course*);
+    virtual void printCourses(Dlist<Course*>&);
+    void    addBook(string, Book*, Course*);
+    void    removeBook(string, Book*, Course*);
+    virtual string getCourse();
 
   private:
-    int   id;
-    double      discountAmnt;
-        Dlist<Product*>*    courses;
+    int     id;
+    double discountAmnt;
+    Dlist<Product*>*    courses;
 
 };
 
