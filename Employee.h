@@ -8,28 +8,35 @@
 using namespace std;
 
 #include "defs.h"
+#include "User.h"
+#include "Product.h"
+#include "Dlist.h"
 
-/*	Purpose:
-	This is a derived class for employees that can use the bookstore management system
-	All employees have a discount percent, id. 
-	Employee has polymorphic methods: view, addProduct, removeProduct (from the main list)
+
+/*  Purpose:
+  This is a derived class for Company that can use the bookstore management system
+  All Company have a discount percent, id. 
+  Employee has polymorphic methods: view, addProduct, removeProduct (from the main list)
 */
 
-class Employee {
+class Employee: public User
+{
 
   public:
     Employee(int=0, double=0.00);//id, discountAmnt (in decimal)
-	virtual ~Employee();
-    int 	getId();
-         void addProduct(Product*);
-     void removeProduct(Product*);
-    double    	getDiscount();
+  virtual ~Employee();
+    int   getCode(); // called getCode so it can be used to sort in the Dlist class
+  double  getDiscount();
+ virtual void printList(Dlist<Product*>&);
 
   private:
-    int   id;
-    double      discountAmnt;
+    int     id;
+    double  discountAmnt;
 
 };
+
+
+
 
 #endif
 
