@@ -9,7 +9,7 @@ using namespace std;
 
 #include "defs.h"
 #include "User.h"
-#include "Product.h"
+#include "Course.h"
 #include "Dlist.h"
 /*  Purpose:
     This is a derived class for Teacher that can use the bookstore management system
@@ -23,7 +23,8 @@ class Teacher: public User
   public:
     Teacher(int=0, double=0.00);//id, discountAmnt (in decimal)
     virtual ~Teacher();
-    int     getCode(); // called getCode so it can be used to sort in the Dlist class
+    int   getCode(); // called getCode so it can be used to sort in the Dlist class
+  double  getDiscount();
     void    addCourse(Course*);
     void    removeCourse(Course*);
     virtual Dlist<Course*>& getCourses();
@@ -36,7 +37,7 @@ class Teacher: public User
   private:
     int     id;
     double discountAmnt;
-    Dlist<Product*>*    courses;
+    Dlist<Course*>*    courses;
 
 };
 
