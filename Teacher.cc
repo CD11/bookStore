@@ -23,7 +23,7 @@ void Teacher::addCourse(Course* c)
 
 }
 
-void Teacher::removeCourse(Product* c)
+void Teacher::removeCourse(Course* c)
 {
 		*courses -= c;
 
@@ -31,14 +31,8 @@ void Teacher::removeCourse(Product* c)
 
 void Teacher::addBook(string name, Book* b, Course* c)
 {
-	c = *courses->searchCourse(name);
-	c += b;
-}
-
-void Teacher::removeBook(string name, Book* b, Course* c)
-{
-	c = *courses->searchCourse(name);
-	c -= b;
+	c = *courses->findObj(name);
+	c->addBook(b);
 }
 
 void Teacher::searchCourse(string name, Course* c)
@@ -46,12 +40,15 @@ void Teacher::searchCourse(string name, Course* c)
 	c = *courses->findObj(name);
 }
 
-
 void Teacher::printCourses(Dlist<Course*>& c){
 	string s = "";
-	cout<< " Printing Courses " << endl;
-	c.printProducts(s, c);
-    cout << s << endl<<endl;
+	cout << " Printing Courses " << endl;
+	for (int i=0; i<c.getSize(); i++)
+	{
+		Course** course = c.getObj(i);//returns a pointer
+		s += c.formatString(&course);//takes a course double pointer
+	}
+    cout << s << endl << endl;
 }
 
 
