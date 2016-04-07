@@ -1,54 +1,61 @@
 #include "Teacher.h"
 
-Teacher::Teacher(int ID, int discAmnt)
+Teacher::Teacher(int ID, double discAmnt)
 {
 	cout << "  --- Teacher ctor " << endl;
 	id   = ID;
 	discountAmnt  = discAmnt;
-	  courses = new Dlist<Course*>();//a teacher can teach multiple courses
-  books = new Dlist<Book*>();//a teacher can have a collection of required books for each course
-
+	courses = new Dlist<Course*>();
 	
 }
 
-//dont deallocate the list of courses and books here. should be done when user quits program.
 Teacher::~Teacher()
 {
 	cout << "  --- Teacher dtor " << endl;
-	// courses->cleanup();
-	// books->cleanupProducts();
 }
 
 double Teacher::getDiscount()    { return discountAmnt; }
-int    Teacher::getId()   { return id; }
+int    Teacher::getCode()   { return id; } // called getCode so it can be used to sort in the Dlist class
 
-void Teacher::addProduct(Book* book)
+void Teacher::addCourse(Course* c)
 {
-	courses += book;
+		*courses += c;
+
 }
 
-void Teacher::addCourse(Course* newCourse)
+void Teacher::removeCourse(Product* c)
 {
-	courses += newCourse;
+		*courses -= c;
+
 }
 
-void Teacher::addCourses(Course* newCourses)
+void Teacher::addBook(string name, Book* b, Course* c)
 {
-	courses += newCourses;
+	c = *courses->searchCourse(name);
+	c += b;
 }
 
-void Teacher::removeCourse(Course* delCourse)
+void Teacher::removeBook(string name, Book* b, Course* c)
 {
-	courses -= delCourse;	
+	c = *courses->searchCourse(name);
+	c -= b;
 }
 
-void Teacher::removeCourses(Dlist<Course*> delCourses)
+void Teacher::searchCourse(string name, Course* c)
 {
-	courses -= delCourses;	
+	c = *courses->findObj(name);
 }
 
-Product* User::searchProduct(string name)
-{
-	products->findProduct(name);
+
+void Teacher::printCourses(Dlist<Course*>& c){
+	string s = "";
+	cout<< " Printing Courses " << endl;
+	c.printProducts(s, c);
+    cout << s << endl<<endl;
 }
 
+
+Dlist<Course*>& Teacher::getCourses(){
+	return *courses;
+}
+string Teacher::getCourse() { return 0; }
